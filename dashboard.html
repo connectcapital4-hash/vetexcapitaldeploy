@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.1/dist/dotlottie-wc.js" type="module"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .loading-bar {
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .console-text {
+            font-family: 'Space Mono', monospace;
+            color: #00ff00;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-black h-screen flex flex-col items-center justify-center overflow-hidden">
+    <div class="w-full max-w-md flex flex-col items-center px-4">
+        <!-- Lottie Animation -->
+        <dotlottie-wc 
+            src="https://lottie.host/8e2b36bc-9b05-4419-84d7-06f7c492a54a/WWU5QJTzvL.lottie" 
+            style="width: 300px; height: 300px" 
+            autoplay 
+            loop>
+        </dotlottie-wc>
+
+        <!-- Loading Bar -->
+        <div class="w-full bg-gray-800 h-2 rounded-full mt-8 mb-4 overflow-hidden">
+            <div id="loadingBar" class="loading-bar h-full bg-gradient-to-r from-green-400 to-blue-500"></div>
+        </div>
+
+        <!-- Console Text -->
+        <div id="consoleText" class="console-text text-sm w-full mb-8">
+            <p>> Initializing deployment sequence...</p>
+        </div>
+
+        <!-- Coming Soon Text -->
+        <h1 class="text-white text-3xl font-bold mb-2">COMING SOON</h1>
+        <p class="text-gray-400 text-center">vertexcapital is under construction. We'll be live shortly.</p>
+    </div>
+
+    <script>
+        // Loading bar animation
+        const loadingBar = document.getElementById('loadingBar');
+        const consoleText = document.getElementById('consoleText');
+        
+        const messages = [
+            "> Compressing assets...",
+            "> Uploading packages...",
+            "> Securing endpoints...",
+            "> Optimizing database...",
+            "> Deploying to production...",
+            "> Running final checks...",
+            "> Almost there...",
+            "> Waiting for Push...",
+            "> Finalizing setup...",
+            "> VertexCapital initializing..."
+        ];
+
+        let progress = 0;
+        let messageIndex = 0;
+        
+        const loadingInterval = setInterval(() => {
+            progress += Math.random() * 2;
+            loadingBar.style.width = `${progress}%`;
+            
+            if (progress >= 100) {
+                clearInterval(loadingInterval);
+                consoleText.innerHTML += `<p>> Deployment complete! Launching soon...</p>`;
+            } else if (progress > (messageIndex + 1) * (100 / messages.length)) {
+                consoleText.innerHTML += `<p>${messages[messageIndex]}</p>`;
+                messageIndex++;
+                
+                // Auto-scroll to bottom
+                consoleText.scrollTop = consoleText.scrollHeight;
+            }
+        }, 300);
+    </script>
+</body>
+</html>
